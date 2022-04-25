@@ -1,5 +1,3 @@
-
-
 process REFERENCE_GENOME {
 	publishDir "${params.outdir}/reference"
 	label 'resource'
