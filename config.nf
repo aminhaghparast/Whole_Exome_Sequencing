@@ -5,12 +5,8 @@ process {
     withLabel: "annotation" { container 'aminhaghparast/annovar_annotation:version1' }
     withLabel: "resource" { container 'oliversi/hg19' }
 }
-
-profiles {
-    docker {
-        docker.enabled = true
-    }
+docker {
+    enabled = true
 }
-
 
 
