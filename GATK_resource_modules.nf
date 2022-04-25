@@ -2,7 +2,7 @@
 
 process REFERENCE_GENOME {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
 	
 	output:
 	file "ucsc.hg19.fasta"
@@ -19,7 +19,7 @@ process REFERENCE_GENOME {
 
 process dbSNP {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
 
 	output:
 	file "dbsnp_138.hg19.vcf" 
@@ -34,7 +34,7 @@ process dbSNP {
 
 process golden_indel {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
 
 	output:
 	file "Mills_and_1000G_gold_standard.indels.hg19.sites.vcf"
@@ -49,7 +49,7 @@ process golden_indel {
 
 process hapmap {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
     
 	output:
 	file "hapmap_3.3.hg19.sites.vcf"
@@ -64,7 +64,7 @@ process hapmap {
 
 process omni {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
 
 	output:
 	file "1000G_omni2.5.hg19.sites.vcf"
@@ -79,7 +79,7 @@ process omni {
 
 process phase1_SNPs {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
 
 	output:
 	file "1000G_phase1.snps.high_confidence.hg19.sites.vcf"
@@ -94,7 +94,7 @@ process phase1_SNPs {
 
 process BWA_INDEX {
 	publishDir "${params.outdir}/reference"
-	tag "resource"
+	label "resource"
 
 	output:
     tuple val("ucsc.hg19.fasta"), file ("ucsc.hg19.fasta.amb") , file ("ucsc.hg19.fasta.ann") , file ("ucsc.hg19.fasta.bwt") , file ("ucsc.hg19.fasta.pac")  , file ("ucsc.hg19.fasta.sa") 

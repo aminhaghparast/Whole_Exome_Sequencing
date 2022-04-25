@@ -1,8 +1,7 @@
 
 
 process FASTP {
-
-    tag "process"
+    label "process"
     publishDir params.outdir, mode: 'copy', pattern: 'fastp_trimmed/*' // publish only trimmed fastq files
     publishDir params.outdir, mode: 'copy', pattern: "${sample_id}_fastp.json" 
     publishDir params.outdir, mode: 'copy', pattern: "${sample_id}_fastp.html"
@@ -29,7 +28,7 @@ process FASTP {
 }
 
 process FASTQC {
-    tag "process"
+    label "process"
     publishDir params.outdir 
 
 
@@ -52,7 +51,7 @@ process FASTQC {
 
 process BWA {
 	publishDir "${params.outdir}/MappedRead"
-	tag "bwa"
+	label "bwa"
 
 	input:
 	file ( reference )
@@ -76,7 +75,7 @@ process BWA {
 
 process SAM_TO_BAM {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( sam_file )
@@ -97,7 +96,7 @@ process SAM_TO_BAM {
 
 process SORTING_BAM_FILE {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( bam_file )
@@ -118,7 +117,7 @@ process SORTING_BAM_FILE {
 
 process MARKDUPLICATE {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( sorted_bam_file )   
@@ -141,7 +140,7 @@ process MARKDUPLICATE {
 
 process ADD_OR_REPLACE_READGROUPS {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( sorted_and_markduplicated_bam_file )   
@@ -164,7 +163,7 @@ process ADD_OR_REPLACE_READGROUPS {
 
 process BUILDING_BAM_INDEX {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( sorted_markduplicated_and_readgroups_bam_file )   
@@ -184,7 +183,7 @@ process BUILDING_BAM_INDEX {
 
 process BASE_RECALIBRATOR {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
 		file ( fasta )
@@ -213,7 +212,7 @@ process BASE_RECALIBRATOR {
 
 process APPLY_BQSR {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( fasta )
@@ -238,7 +237,7 @@ process APPLY_BQSR {
 
 process VARIANT_CALLING {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( sorted_markduplicated_readgroups_recal_bam_file )
@@ -260,7 +259,7 @@ process VARIANT_CALLING {
 
 process VARIANTRECALIBRATOR_SNPS {
 	publishDir "${params.outdir}/VariantRecalibrator"
-    tag "gatk"
+    label "gatk"
 	
 	input:
     file ( haplotypecaller_vcf )
@@ -310,7 +309,7 @@ process VARIANTRECALIBRATOR_SNPS {
 
 process VQSR_APPLY_SNP {
 	publishDir "${params.outdir}/VariantRecalibrator"
-	tag "gatk"
+	label "gatk"
 	
 	input:
 	file haplotypecaller_vcf
@@ -336,7 +335,7 @@ process VQSR_APPLY_SNP {
 
 process VARIANTRECALIBRATOR_INDELS {
 	publishDir "${params.outdir}/VariantRecalibrator"
-	tag "gatk"
+	label "gatk"
 	
 	input:
     file ( recalibrated_snps_raw_indels )
@@ -377,7 +376,7 @@ process VARIANTRECALIBRATOR_INDELS {
 
 process VQSR_APPLY_INDEL {
 	publishDir "${params.outdir}/VariantRecalibrator"
-	tag "gatk"
+	label "gatk"
 	
 	input:
 	file recalibrated_snps_raw_indels
@@ -406,7 +405,7 @@ process VQSR_APPLY_INDEL {
 
 process HARD_FILTERING_STEP_1 {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( vcf_file )   
@@ -427,7 +426,7 @@ process HARD_FILTERING_STEP_1 {
 
 process HARD_FILTERING_STEP_2 {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( vcf_file )   
@@ -448,7 +447,7 @@ process HARD_FILTERING_STEP_2 {
 
 process HARD_FILTERING_STEP_3 {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( vcf_snp_file )   
@@ -469,7 +468,7 @@ process HARD_FILTERING_STEP_3 {
 
 process HARD_FILTERING_STEP_4 {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( vcf_indel_file )   
@@ -490,7 +489,7 @@ process HARD_FILTERING_STEP_4 {
 
 process HARD_FILTERING_STEP_5 {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( vcf_snp_filtered_file )
@@ -511,7 +510,7 @@ process HARD_FILTERING_STEP_5 {
 
 process ANNOTATION {
     publishDir params.outdir, mode: 'copy'
-    tag "annotation"
+    label "annotation"
 
     input:
         file ( merged_vcf_file )
@@ -538,7 +537,7 @@ process ANNOTATION {
 
 process VCF2TSV {
     publishDir params.outdir, mode: 'copy'
-    tag "process"
+    label "process"
 
     input:
         file ( multianno_vcf_file )
