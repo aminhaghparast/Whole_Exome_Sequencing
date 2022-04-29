@@ -19,4 +19,4 @@ Install any of Docker or Singularity for full pipeline reproducibility.
 
 test the pipeline on a minimal dataset with a single command : 
 
-    nextflow run main.nf  -with-docker  aminhaghparast/wes_image:latest
+    nextflow run main.nf -profile docker
