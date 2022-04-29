@@ -418,7 +418,7 @@ process VQSR_APPLY_INDEL {
  */
 process HARD_FILTERING_STEP_1 {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( vcf_file )   
@@ -439,7 +439,7 @@ process HARD_FILTERING_STEP_1 {
 
 process HARD_FILTERING_STEP_2 {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( vcf_file )   
@@ -460,7 +460,7 @@ process HARD_FILTERING_STEP_2 {
 
 process HARD_FILTERING_STEP_3 {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( vcf_snp_file )   
@@ -481,7 +481,7 @@ process HARD_FILTERING_STEP_3 {
 
 process HARD_FILTERING_STEP_4 {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( vcf_indel_file )   
@@ -502,7 +502,7 @@ process HARD_FILTERING_STEP_4 {
 
 process HARD_FILTERING_STEP_5 {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( vcf_snp_filtered_file )
