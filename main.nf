@@ -52,7 +52,7 @@ include {
     hapmap;
     omni;
     phase1_SNPs;
-    BWA_INDEX } from './GATK_resource_modules.nf'
+    BWA_INDEX } from './modules/GATK_resource_modules.nf'
 
 
 include { 
@@ -77,7 +77,7 @@ include {
     HARD_FILTERING_STEP_4;
     HARD_FILTERING_STEP_5;
     ANNOTATION;
-    VCF2TSV } from './process_modules.nf'
+    VCF2TSV } from './modules/process_modules.nf'
 
 
 

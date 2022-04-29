@@ -1,0 +1,1 @@
+2022-04-29 02:10:38	8m 40s	cranky_torvalds	ERR	41170d2337655d6c7ac0bba8cf09d113	142e17ee-eeaa-456e-91cd-fb457050ae38	nextflow run main.nf -profile docker
