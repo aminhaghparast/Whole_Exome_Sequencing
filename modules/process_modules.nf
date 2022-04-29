@@ -51,7 +51,7 @@ process FASTQC {
 
 process BWA {
 	publishDir "${params.outdir}/MappedRead"
-	label 'bwa'
+	label 'process'
 
 	input:
 	file ( reference )
@@ -180,10 +180,12 @@ process BUILDING_BAM_INDEX {
     """   
 }
 
-
+/* Process 4: Base recalibrate to detect systematic errors in base quality scores, 
+            select unique alignments and index
+ */
 process BASE_RECALIBRATOR {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
 		file ( fasta )
@@ -212,7 +214,7 @@ process BASE_RECALIBRATOR {
 
 process APPLY_BQSR {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( fasta )
@@ -234,10 +236,15 @@ process APPLY_BQSR {
     """   
 }
 
-
+/*
+ * Process 5: Call variants with GATK HaplotypeCaller.
+ *            Calls SNPs and indels simultaneously via local de-novo assembly of 
+ *            haplotypes in an active region.
+ *            Filter called variants with GATK VariantFiltration.    
+ */
 process VARIANT_CALLING {
     publishDir params.outdir, mode: 'copy'
-    label 'process'
+    label 'gatk'
 
     input:
         file ( sorted_markduplicated_readgroups_recal_bam_file )
@@ -256,7 +263,11 @@ process VARIANT_CALLING {
     """   
 }
 
-
+/*
+VQSR stands for Variant Quality Score Recalibration is a sophisticated filtering technique applied
+on the variant callset that uses machine learning to model the technical profile of variants in a training set and uses
+ that to filter out probable artifacts from the callset.
+ */
 process VARIANTRECALIBRATOR_SNPS {
 	publishDir "${params.outdir}/VariantRecalibrator"
     label 'gatk'
@@ -402,7 +413,9 @@ process VQSR_APPLY_INDEL {
 	"""
 }
 
-
+/* Hard-filtering consists of choosing specific thresholds for one or more annotations and throwing out any variants that
+ have annotation values above or below the set thresholds.
+ */
 process HARD_FILTERING_STEP_1 {
     publishDir params.outdir, mode: 'copy'
     label 'process'
