@@ -41,6 +41,7 @@ if (params.help) {
 
 
 
+
 /* 
  * Import modules 
  */
@@ -197,11 +198,10 @@ workflow {
         HARD_FILTERING_STEP_3.out,
         HARD_FILTERING_STEP_4.out,
         VARIANT_CALLING.out )
-
   ANNOTATION (
         HARD_FILTERING_STEP_5.out,
         VARIANT_CALLING.out )
         
   VCF2TSV (ANNOTATION.out[0])
-}
 
+}
